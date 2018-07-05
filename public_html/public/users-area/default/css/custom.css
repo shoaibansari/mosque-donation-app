@@ -1,0 +1,43 @@
+.x-block { width: 16px; height: 16px;  display: inline-block; margin-right: 5px}
+.x-block-red { background-color: #ff0909; }
+.x-block-green { background-color: #00cc00; }
+.x-block-lightblue { background-color: #646cff; }
+
+.dataTable {
+    font-size: 13px;
+}
+
+.dataTables_wrapper .dt-buttons a.dt-button {
+    color: #000;
+     border: 1px solid #999999;
+}
+.chosen-container-multi .chosen-choices {
+    background: #fff;
+    border: 1px solid #ccc;
+    line-height: 29px;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border: 1px solid #ccc;
+    border-radius: 0;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 2px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #492eec;
+    border: 1px solid #494ec5;
+    border-radius: 0;
+    cursor: default;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 0 5px;
+    color: #fff;
+}

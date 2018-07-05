@@ -1,0 +1,20 @@
+CREATE TABLE `user_devices` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `platform` enum('ios','android','windows') DEFAULT NULL,
+  `os_version` varchar(50) DEFAULT NULL,
+  `device_id` varchar(45) DEFAULT NULL,
+  `gcm_id` varchar(45) DEFAULT NULL COMMENT 'Google Cloud Message - ID',
+  `notifications` tinyint(1) DEFAULT '1',
+  `badges` int(10) unsigned DEFAULT '0',
+  `latitude` varchar(25) DEFAULT NULL,
+  `longitude` varchar(25) DEFAULT NULL,
+  `last_activity_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_users_devices_users1_idx` (`user_id`),
+  KEY `users_devices_token` (`token`),
+  CONSTRAINT `fk_users_devices_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8

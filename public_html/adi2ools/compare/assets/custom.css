@@ -1,0 +1,34 @@
+/*@import url('https://fonts.googleapis.com/css?family=Roboto:300,700');*/
+
+body, table, td {
+    font-family: 'Arial';
+    font-size: 12px;
+    background: #3f3f3f;
+    color: #000;
+}
+
+
+table thead tr {
+    background: #337ab7;
+    color: #fff;
+}
+
+.fixed-table-body, table tbody tr td {
+    background: #fff;
+    color: #000;
+}
+
+.fixed-table-container {
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+}
+
+.panel {
+    border-radius: 0;
+}
+
+.panel-heading {
+     border-top-left-radius: 0;
+     border-top-right-radius: 0;
+}

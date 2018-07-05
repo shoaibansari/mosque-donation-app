@@ -1,0 +1,19 @@
+{
+  "name": "Value Logo Design",
+  "version": "1.0.0",
+  "description": "ValueLogoDesign",
+  "main": "js/backoffice/theme.js",
+  "authors": [
+    "Muhammad Adnan"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

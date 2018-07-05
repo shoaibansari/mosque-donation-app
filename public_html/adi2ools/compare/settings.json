@@ -1,0 +1,35 @@
+{
+  "auth": {
+    "username": "admin",
+    "password": "empty",
+    "root_dir": "../../",
+    "remote_url": "http://www.sandboxbuild.com/flash-drive/adi2ools/compare/remote.php",
+    "remote_key": "ab40cd16f9ae"
+  },
+  "compare": {
+    "algorithm": "FILE_HASH",
+    "local_exclude_dirs": [
+      "../../adi2ools",
+      "../../.idea",
+      "../../node_modules",
+      "../../offline",
+      "../../storage",
+      "../../tests",
+      "../../vendor",
+      "../../public"
+
+    ],
+    "remote_exclude_dirs": [
+      "../../adi2ools",
+      "../../.idea",
+      "../../node_modules",
+      "../../offline",
+      "../../storage",
+      "../../tests",
+      "../../vendor",
+      "../../public"
+    ]
+  },
+  "timezone": "Asia/Karachi",
+  "debug": true
+}

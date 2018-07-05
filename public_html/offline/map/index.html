@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>5 ways to customize the Google Maps infowindow</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+	<div id="map-canvas"></div>
+
+	<div class="map-data" style="display: none;">
+		<div class="iw-contents">
+			<div id="iw-container">
+				<div class="iw-title">2500 PILLORY POINTE SCHERTZ, TX 78154</div>
+				<div class="iw-content">
+					<!--<div class="iw-subTitle">Home Owner: N/A</div>-->
+					<!--<img src="http://maps.marnoto.com/en/5wayscustomizeinfowindow/images/vistalegre.jpg" alt="Porcelain Factory of Vista Alegre" height="115" width="83">-->
+					<p>
+						House, Street: A-13<br>
+						City: Dallas<br>
+						Zip: 3434<br>
+						State: TX<br>
+						e-mail: adnan@gmail.com<br>
+					</p>
+					<p>
+						<a href="#">Duplicate Marker</a> |
+						<a href="#">Remove Marker</a>
+					</p>
+				</div>
+				<!--<div class="iw-bottom-gradient"></div>-->
+			</div>
+		</div>
+	</div>
+
+	<!-- script src='https://maps.googleapis.com/maps/api/js?v=3.20&sensor=false'></script> -->
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfV6AdqMtB6PFHYnNEH8tmiHdd19T-uGY"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.25/gmaps.js"></script>
+	<script src="js/index.js"></script>
+
+</body>
+</html>

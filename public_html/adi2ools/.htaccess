@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule \.xml$ [R=404,L]
