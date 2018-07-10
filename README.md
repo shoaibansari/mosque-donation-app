@@ -1,1 +1,1 @@
-# mosque-donation-app
+# Mosque donation app
