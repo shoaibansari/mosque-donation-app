@@ -30,9 +30,10 @@ class DonationController extends Controller {
 	 * @param UsersDataTable $dataTable
 	 * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
 	 */
-	public function manage( DonationDataTable $dataTable ) {
+	public function manage( DonationDataTable $dataTable ) { 
+		$notifications = $this->userRepo->getNotConfirmedUser();
 		toolbox()->pluginsManager()->plugins(['datatables']);
-		return $dataTable->render( toolbox()->backend()->view( 'donation.manage' ) );
+		return $dataTable->render( toolbox()->backend()->view( 'donation.manage' ), compact('notifications') );
 	}
 
     
@@ -70,8 +71,6 @@ class DonationController extends Controller {
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function store( DonationCreateRequest $request ) {
-	
-		$data = $request->except( ['_token'] );
 		if ( !$user = $this->donationRepo->create( $data ) ) {
 			return redirect( route( 'admin.donation.manage' ) )->with( 'error', $this->donationRepo->getErrorMessage() );
 		}

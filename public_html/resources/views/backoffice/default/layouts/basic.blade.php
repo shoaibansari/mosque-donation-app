@@ -14,6 +14,39 @@
     <link href="{{ toolbox()->asset('/plugins/node-waves/waves.css') }}" rel="stylesheet" />
     <link href="{{ toolbox()->asset('/plugins/animate-css/animate.css') }}" rel="stylesheet" />
     <link href="{{ toolbox()->backend()->asset('/css/style.css') }}" rel="stylesheet">
+    <link href="{{ toolbox()->frontend()->asset('css/new-age.min.css') }}" rel="stylesheet">
+    <style type="text/css">
+        body.login-page {
+  position: relative;
+  width: 100%;
+  padding-top: 150px;
+  padding-bottom: 100px;
+  color: white;
+  background: url("../img/bg-pattern.png"), #45bd71;
+  background: url("../img/bg-pattern.png"), -webkit-linear-gradient(to left, #45bd71,#324c38);
+  background: url("../img/bg-pattern.png"), linear-gradient(to left, #45bd71,#324c38); }
+  body.login-page  {
+    max-width: 500px;
+    margin-bottom: 100px;
+    text-align: center; }
+   
+  
+
+  @media (min-width: 992px) {
+    body.login-page {
+      height: 100vh;
+      min-height: 775px;
+      padding-top: 0;
+      padding-bottom: 0; }
+      body.login-page .body-content {
+        margin-bottom: 0;
+        text-align: left; }
+        body.login-page .body-content h1 {
+          font-size: 50px; }
+      body.login-page .device-container {
+        max-width: 325px; } }
+    </style>
+
 </head>
 <body class="login-page">
     <div class="login-box">

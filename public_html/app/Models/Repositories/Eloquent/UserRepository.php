@@ -29,6 +29,24 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
 	    $this->avatarStoragePath = $this->getModel()->getAvatarStoragePath();
     }
 
+    /**
+	* Get current logged-in user
+	*
+	* @return User|null
+	*/
+	public function getLoggedInUser() {
+		
+		if(auth('admin')->check()) {
+			return auth('admin')->user();
+		}
+
+		if(request()->is('api/*') && $token = request('token')) {
+			return UserDeviceRepository::instance()->findUserByToken($token);
+		}
+
+		return auth()->user();
+	}
+
 
     public function changeStatus( $user_id, $status ) {
     	if ( !$user = $this->getModel( $user_id ) ) {
@@ -149,13 +167,13 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
 		// updating record
 		$user->update( $data );
 
-		// storing avatar
 		if ( $avatar ) {
 			$oldAvatar = $this->avatarStoragePath . '/' . $user->avatar;
 			$ext = $avatar->getClientOriginalExtension();
 			$avatarFilename = $user->id . '-' . Carbon::now()->timestamp . '.' . $ext;
 			$newAvatar = $this->avatarStoragePath . '/' . $avatarFilename;
-			Image::make( $avatar->getRealPath() )->fit( 48, 48 )->save( $newAvatar );
+			$avatar->move( $this->avatarStoragePath . '/', $avatarFilename);  
+			//Image::make( $avatar->getRealPath() )->fit( 48, 48 )->save( $newAvatar );
 			$user->avatar = $avatarFilename;
 			$user->save();
 
@@ -433,6 +451,14 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
 			->get()
 			->pluck('name', 'id');
 	}
+
+	public function getNotConfirmedUser(){
+		$users = $this->getModel();
+		$data['count'] = $users->where('is_confirmed','!=',1)->count() ;
+		$data['data'] = $users->where('is_confirmed','!=',1)->paginate(10) ;
+		return $data; 
+		
+	}
 	
 	/**
 	 * @param $user_id
@@ -485,6 +511,25 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
 		
 		return $user->hasPermission($permission_id);
 	}
+
+	public function saveTime($user_id){ 
+
+		 DB::table('users')
+            ->where('id', $user_id)
+            ->update(array('visit' => Carbon::now()));
+
+		if(!empty ($this->model->where('id', $user_id)->pluck('visit')[0]) ){
+			return $this->model->where('id', $user_id)->pluck('visit')[0];
+		}else{
+			return Carbon::now();
+		}
+	}
+
+	public function getVisitDate($user_id){
+		return $this->model->where('id' , $user_id)->pluck('visit');
+	}
+
+	
 
 	
 }

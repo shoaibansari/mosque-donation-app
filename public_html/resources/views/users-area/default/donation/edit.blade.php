@@ -74,7 +74,7 @@
 					    </div>
 
 
-						<div class="col-md-4">
+						<!-- <div class="col-md-4">
 							{{ Form::label('mosque_id', 'Mosque *') }}
 							<div class="form-group">
 								<div class="form-line">
@@ -82,6 +82,9 @@
 								</div>
 							</div>
 						</div>
+ -->
+
+						
 
 						<div class="col-md-4">
 							{{ Form::label('is_active', 'Active *') }}
@@ -96,14 +99,15 @@
 							</div>
 						</div>
 
-						 <div class="col-md-8">
+						 <div class="col-md-12">
 							{{ Form::label('donation_description', 'Description *') }}
 							<div class="form-group">
 								<div class="form-line">
-									{{ Form::textarea('donation_description', null, ['class' => 'form-control', 'placeholder'=>'Enter donation description','size' => '10x3']) }}
+									{{ Form::textarea('donation_description', null, ['class' => 'form-control', 'placeholder'=>'Enter donation description','size' => '10x2']) }}
 								</div>
 							</div>
 						</div>
+
 
 						</div>{{-- end row --}}
 						

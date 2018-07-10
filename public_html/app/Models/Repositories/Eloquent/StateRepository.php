@@ -44,6 +44,21 @@ class StateRepository extends AbstractRepository implements StateRepositoryInter
 		return $result = $this->getModel()->active()->get();
 	}
 
+	 public function getStates($withEmpty=false) {
+        $allCats = $this->model->active()->orderBy('id','asc')->pluck('name', 'code')->toArray();
+
+        if (!$withEmpty) {
+            return $allCats;
+        }
+
+        $categories = [];
+        $categories[0] = 'Select Category';
+        foreach ($allCats as $key => $value) {
+            $categories[$key] = $value;
+        }
+    	return $categories;
+    }
+
 	/**
 	 * Get data for list box
 	 *

@@ -47,7 +47,7 @@
 						</div>
 						<div class="col-md-2 ">
 							{{ Form::label('preview', 'Avatar Preview', ['class'=>'center-block text-center']) }}
-							<img class="center-block img-responsive" src="{{ $thisUser->getAvatarUrl() }}">
+							<img class="center-block img-responsive" width="40" height="40" src="{{ $thisUser->getAvatarUrl() }}">
 							@if ( $thisUser->hasAvatar() )
 							<button type="button" class="btn btn-danger btn-xs waves-effect center-block bn-delete" style="margin-top: 7px; display: block !important;">
 								Delete

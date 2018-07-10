@@ -28,7 +28,7 @@
 			<li class="{{ toolbox()->route()->getActiveClassIfRoute('mosque.manage') }}">
 				<a href="{{ route('mosque.manage') }}">
 					<i class="material-icons">star</i>
-					<span>Mosques</span>
+					<span>Mosque Details</span>
 				</a>
 			</li>
 			@endif

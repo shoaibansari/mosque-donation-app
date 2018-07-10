@@ -13,7 +13,8 @@ class MosqueDonation extends Model
         'mosque_id',
         'donation_id',
         'email',
-        'payment'
+        'payment',
+        'payment_method'
     ];
 
     public function users()

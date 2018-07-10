@@ -20,9 +20,7 @@
     <link href="{{ toolbox()->asset('/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet" />
     <link href="{{ toolbox()->asset('/plugins/waitme/waitMe.css') }}" rel="stylesheet">
     <link href="{{ toolbox()->backend()->asset('/css/style.css') }}" rel="stylesheet">
-    <link href="{{ toolbox()->asset('/plugins/bootstrap.daterangepicker/2/daterangepicker.css')}}" rel="stylesheet" />
     <link href="{{ toolbox()->backend()->asset('/css/themes/all-themes.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.css">
 	{{-- BEGIN PLUGIN MANAGER SPECIFIC STYLES --}}
 	{!! toolbox()->pluginsManager()->renderStylesheets() !!}
 	{{-- END PLUGIN MANAGER STYLES --}}
@@ -53,12 +51,27 @@
 	<nav class="navbar">
 		<div class="container-fluid">
 			<div class="navbar-header">
+
 				<a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
 				<a href="javascript:void(0);" class="bars"></a>
-				<a class="navbar-brand" href="{{ settings()->getAdminUrl('dashboard') }}">{{ settings()->getAppName() }}</a>
+				<!-- <a class="navbar-brand" href="{{ settings()->getAdminUrl('dashboard') }}">{{ settings()->getAppName() }}</a> -->
+				<img alt="{{ settings()->getAppName() }}" title="" width="100" height="auto" src="{{ toolbox()->frontend()->asset('email-assets/new-logo.png') }}" />
+
 			</div>
 			<div class="collapse navbar-collapse" id="navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
+					<li class="">
+						
+						<a href="{{ route('admin.users.manage') }}" target="_blank" data-toggle="tooltip" role="button">
+							@if(isset( $notifications['count'] ) && $notifications['count'] != 0)
+
+								<i class="count" style="color:red; font-size: 20px">{{$notifications['count']}}</i>
+							@endif
+							<i class="material-icons">notifications_active</i>
+							<span style="position: relative; top: -7px;">Notifications</span>
+						</a>
+						</a>
+					</li>
 					<li class="">
 						<a href="{{ toolbox()->frontend()->url('') }}" target="_blank" data-toggle="" role="button">
 							<i class="material-icons">launch</i>
@@ -127,8 +140,6 @@
 	<script src="{{ toolbox()->asset('/plugins/bootstrap-notify/bootstrap-notify.js')}}"></script>
 	<script src="{{ toolbox()->asset('/plugins/bootstrap-notify/bootstrap-notify.js')}}"></script>
 	<script src="{{ toolbox()->asset('/plugins/jsvalidation/js/jsvalidation.js')}}"></script>
-	<script src="{{ toolbox()->asset('/plugins/bootstrap.daterangepicker/2/daterangepicker.js') }}"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/js/bootstrap-material-datetimepicker.min.js"></script>
 	<script src="{{ toolbox()->backend()->asset('/js/admin.js') }}"></script>
 	{{-- BEGIN PLUGIN MANAGER SCRIPTS --}}
 	{!! toolbox()->pluginsManager()->renderScripts() !!}
@@ -186,7 +197,6 @@
 		    });
       
 		})
-
 	</script>
 
 	@yield('footer')

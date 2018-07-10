@@ -15,7 +15,7 @@ use App\Models\Repositories\Eloquent\UserRepository;
 use App\Models\User;
 use App\Models\UserMosque;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 class DonationController extends Controller {
 	protected $userRepo, $donationRepo, $mosqueRepo;
 
@@ -32,9 +32,11 @@ class DonationController extends Controller {
 	 * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
 	 */
 	public function manage( DonationDataTable $dataTable ) {
-
+		
+		$mosque_admin_id = \Auth::id() ; 
+		$visitDate = $this->userRepo->saveTime($mosque_admin_id );
 		toolbox()->pluginsManager()->plugins(['datatables']);
-		return $dataTable->render( toolbox()->userArea()->view( 'donation.manage' ) );
+		return $dataTable->render( toolbox()->userArea()->view( 'donation.manage' ), compact('notifications') );
 	}
 
 	
@@ -71,7 +73,9 @@ class DonationController extends Controller {
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function store( DonationCreateRequest $request ) {
-	
+		$data = $request->except( ['_token','required_amount'] );
+		$data['required_amount'] = number_format($request->required_amount,2);
+		
 		$data = $request->except( ['_token'] );
 		if ( !$user = $this->donationRepo->create( $data ) ) {
 			return redirect( route( 'donation.manage' ) )->with( 'error', $this->donationRepo->getErrorMessage() );

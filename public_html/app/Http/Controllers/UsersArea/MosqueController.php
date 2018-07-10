@@ -12,7 +12,7 @@ use App\Models\Repositories\Eloquent\MosqueRepository;
 use App\Models\Repositories\Eloquent\UserRepository;
 use App\Models\Repositories\Eloquent\UserMosqueRepository;
 use App\Http\Requests\UsersArea\MosqueCreateRequest;
-
+use App\Models\Repositories\Eloquent\DonationRepository;
 
 class MosqueController extends Controller
 {
@@ -21,12 +21,14 @@ class MosqueController extends Controller
 	public function __construct(
 		UserRepository $userRepo,
 		MosqueRepository $mosqueRepo,
-		UserMosqueRepository $userMosqueRepo
+		UserMosqueRepository $userMosqueRepo,
+		DonationRepository $donationRepository
 
 	) {
 		$this->userRepo = $userRepo;
 		$this->mosqueRepo = $mosqueRepo;
 		$this->userMosqueRepo = $userMosqueRepo;
+		 $this->donationRepo = $donationRepository;
 	}
 
 	/**
@@ -35,9 +37,15 @@ class MosqueController extends Controller
 	 * @param MosqueDataTable $dataTable
 	 * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
 	 */
-	public function manage( UserMosquesDataTable $dataTable ) {
+	public function manage( UserMosquesDataTable $dataTable ) { 
+		$mosque_admin_id = \Auth::id() ; 
+        $visitDate = $this->userRepo->saveTime($mosque_admin_id );
+
+        $notifications = $this->donationRepo->getLatestDonation($visitDate);
+       
+        $mosque = new Mosque();
 		toolbox()->pluginsManager()->plugins(['datatables']);
-		return $dataTable->render( toolbox()->userArea()->view( 'mosque.manage' ) );
+		return $dataTable->render( toolbox()->userArea()->view( 'mosque.manage' ), compact('notifications' , 'mosque') );
 	}
 
 

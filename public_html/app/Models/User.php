@@ -22,7 +22,7 @@ class User extends Authenticatable {
 	 */
 	protected $fillable = [
 		'name', 'email', 'password', 'phone', 'last_login_at', 'is_blocked', 'blocked_reason', 'is_confirmed',
-		'confirmation_code', 'confirmed_at', 'avatar', 'updated_at', 'is_deleteable', 'user_type'
+		'confirmation_code', 'confirmed_at', 'avatar', 'updated_at', 'is_deleteable', 'user_type','visit'
 	];
 
 	/**
@@ -237,6 +237,13 @@ class User extends Authenticatable {
 	 */
 	public function sendPasswordResetNotification( $token ) {
 		$this->notify( new UserResetPasswordNotification( $token, $this->email ) );
+	}
+
+	public function getUserName($id){
+		if(!empty( $this->where('id', $id)->pluck('name') )){
+			return $this->where('id', $id)->pluck('name')[0];
+		}
+		return '';
 	}
 
 }

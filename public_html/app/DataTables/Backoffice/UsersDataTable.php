@@ -85,7 +85,7 @@ class UsersDataTable extends DataTable
      */
     public function query()
     {
-        $query = User::query()->where('id', '!=', User::ADMIN_ID );
+        $query = User::query()->where('id', '!=', User::ADMIN_ID )->orderBy('is_confirmed','asc');
         return $this->applyScopes($query);
     }
 

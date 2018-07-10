@@ -1,3 +1,4 @@
+{{$notifications['count']}}
 @extends( toolbox()->backend()->layout('master') )
 
 @section('heading')
@@ -66,6 +67,21 @@
 			</div>
 		</div>
 		
+	</div>
+
+		<div class="row clearfix">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="card">
+				<div class="header">
+					<h2>User Registration Notification</h2>
+				</div>
+				<div class="body">
+					@foreach($notifications['data'] as $data)
+						<p class="active"><a href="{{ route('admin.users.manage', '')}}' "> {{$data->name}} </a> is waiting for your approval</p> 
+					@endforeach
+				</div>
+			</div>
+		</div>
 	</div>
 	{{-- END Tiles --}}
 

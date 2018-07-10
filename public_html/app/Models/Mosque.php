@@ -19,7 +19,10 @@ class Mosque extends Model
 		'tax_id',
         'is_active',
         'longitude',
-        'latitude'
+        'latitude',
+        'city',
+        'state',
+        'bank_routing' 
 	];
 
 	public function __construct( array $attributes = [] ) {
@@ -37,6 +40,14 @@ class Mosque extends Model
 
     public function scopeActive($query) {
         return $query->whereIsActive(1);
+    }
+
+    public function getMosqueName($id){
+        if(!empty( $this->where('id', $id)->first()->mosque_name) ){
+            return $this->where('id', $id)->first()->mosque_name;
+        }else{
+            return '';
+        }
     }
 
 }

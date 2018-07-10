@@ -20,7 +20,7 @@ class DonationDataTable extends DataTable
      */
     public function ajax()
     {
-        return $this->datatables->eloquent( $this->query())
+        return $this->datatables->queryBuilder($this->query())
             ->addColumn('action', function( $donation ) {
                 return '
                     <button type="button" class="btn bg-purple waves-effect btn-xs btn-edit" title="Edit" data-id="'. $donation->id .'">Edit</button>
@@ -28,17 +28,7 @@ class DonationDataTable extends DataTable
                     <button type="button" class="btn btn-primary waves-effect btn-xs btn-view" title="View" data-id="' . $donation->id .'">View Funds</button>
                 ';
             })
-            ->addColumn( 'user_id', function($donation) {
-                if( $user = User::where('id', $donation->user_id )->first() ){
-                    return $user->name;
-                }
-            })
-            ->addColumn( 'mosque_id', function($donation) {
-                if( $mosque = Mosque::where('id', $donation->mosque_id )->first() ){
-                    return $mosque->mosque_name;
-                }
-            })
-        ->rawColumns(['user_id','action'])
+        ->rawColumns(['action'])
         ->make(true);
     }
 
@@ -48,9 +38,9 @@ class DonationDataTable extends DataTable
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\Illuminate\Support\Collection
      */
     public function query()
-    {
-        $query = Donation::query();
-        return $this->applyScopes($query);
+    {        
+       $query = DB::table('donation_view');
+       return $this->applyScopes($query);
     }
 
     /**
@@ -76,9 +66,9 @@ class DonationDataTable extends DataTable
     {
         return [
             'id',
-            'user_id' => ['title' => 'Name'],
-            'mosque_id' => ['title' => 'Mosque'],
-            'donation_title' => ['title' => 'Title'],
+            'name',
+            'mosque',
+            'title',
             'required_amount' => ['Title' => 'Required Amount'],
             'start_date' => ['title' => 'Start Date'],
             'end_date' => ['title' => 'End Date'],

@@ -14,7 +14,6 @@
 @endsection
 
 @section('contents')
-
 	<div class="row clearfix">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div class="card">
@@ -133,6 +132,35 @@
 							</div>
 						</div>
 
+							<div class="col-md-4" style="z-index: 1;">
+							{{ Form::label('city', 'City *') }}
+							<div class="form-group">
+								<div class="form-line">
+									{{ Form::text('city', null, ['class' => 'form-control', 'placeholder'=>'City', 'required' => 'required']) }}
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-md-4">
+							{{ Form::label('state', 'State *') }}
+							<div class="form-group">
+								<div class="form-line">
+									{{ Form::select('state', $states , null, ['class' => 'form-control chosen-select', 'required' => 'required']) }}
+								</div>
+							</div>
+						</div>
+
+						
+						<div class="col-md-4">
+							{{ Form::label('bank_routing', 'Bank Routing') }}
+							<div class="form-group">
+								<div class="form-line">
+									{{ Form::number('bank_routing', null, ['class' => 'form-control', 'placeholder'=>'Bank Routing', 'required' => 'required']) }}
+								</div>
+							</div>
+						</div>
+
 						<div class="col-md-4" id="userlist">
 							{{ Form::label('user_id', 'Mosque Admin *') }}
 							<div class="form-group">
@@ -141,7 +169,6 @@
 								</div>
 							</div>
 						</div>
-
 
 						@if (!isset($mosque->users) )
 							<div class="col-md-12">

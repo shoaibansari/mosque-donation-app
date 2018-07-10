@@ -30,8 +30,9 @@ class UserController extends Controller
 	 * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
 	 */
 	public function manage( UsersDataTable $dataTable ) {
+		$notifications = $this->userRepo->getNotConfirmedUser();
 		toolbox()->pluginsManager()->plugins(['datatables']);
-		return $dataTable->render( toolbox()->backend()->view( 'users.manage' ) );
+		return $dataTable->render( toolbox()->backend()->view( 'users.manage' ) , compact('notifications'));
 	}
 
 	/**
@@ -86,8 +87,9 @@ class UserController extends Controller
 
 		$action = 'create a new';
 		$roles = $this->roleRepo->getActiveRolesList( Role::TYPE_ADMIN );
+		$notifications = $this->userRepo->getNotConfirmedUser();
 
-		return view( toolbox()->backend()->view( 'users.edit' ), compact( 'action', 'roles' ) );
+		return view( toolbox()->backend()->view( 'users.edit' ), compact( 'action', 'roles' , 'notifications') );
 	}
 
 	/**
@@ -119,8 +121,9 @@ class UserController extends Controller
 
 		$action = 'edit';
 		$roles = $this->roleRepo->getActiveRolesList( Role::TYPE_ADMIN );
+		$notifications = $this->userRepo->getNotConfirmedUser();
 
-		return view( toolbox()->backend()->view( 'users.edit' ), compact( 'action', 'id', 'user', 'roles' ) );
+		return view( toolbox()->backend()->view( 'users.edit' ), compact( 'action', 'id', 'user', 'roles','notifications' ) );
 	}
 
 	/**

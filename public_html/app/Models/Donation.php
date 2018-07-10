@@ -19,4 +19,6 @@ class Donation extends Model {
         return $query->whereIsActive(1);
     }
 
+    
+
 }

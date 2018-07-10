@@ -31,7 +31,7 @@ class UserAccountRepository extends AbstractRepository implements UserAccountRep
 	 */
 	public function create( $data ) {
 
-		// add wallet
+		// add wallet		
 		if(!$userAccount = $this->addRecord($data)) {
 			return $this->setErrorMessage('Unable to create wallet.');
 		}
@@ -39,4 +39,20 @@ class UserAccountRepository extends AbstractRepository implements UserAccountRep
 		$this->setMessage('The wallet has been created.');
 		return $userAccount;
 	}
+    
+    /**
+	 * @param $data
+	 * @throws \Exception
+	 */
+	public function findUser( $user_id ){
+
+		// add wallet		
+		if(!$userAccount = $this->getModel()->where('user_id', $user_id)->get()) {
+			return $this->setErrorMessage('Unable to user wallet.');
+		}
+		$this->setMessage('The user wallet is fetched.');
+		return $userAccount;
+	}
+
+
 }

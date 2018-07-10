@@ -5,8 +5,10 @@ use App\Models\Mosque;
 use App\Models\Repositories\MosqueRepositoryInterface;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\State;
 use App\Models\UserDevice;
 use App\Models\UserMosque;
+
 use DB;
 
 class MosqueRepository extends AbstractRepository implements MosqueRepositoryInterface {
@@ -151,6 +153,8 @@ class MosqueRepository extends AbstractRepository implements MosqueRepositoryInt
 
 		return $a;
 	}
+
+
     
 	
 	

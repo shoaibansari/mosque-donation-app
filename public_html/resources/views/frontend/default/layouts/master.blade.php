@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+	
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
@@ -34,20 +34,20 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ml-auto">
 				<!-- <li class="nav-item">
-                 <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#login">Login</a>
-                </li>
-                <li class="nav-item">
-                 <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#signUp">Sign Up</a>
-                </li> -->
+					<a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#login">Login</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#signUp">Sign Up</a>
+				</li> -->
 				<!-- <li class="nav-item">
-                 <a class="nav-link js-scroll-trigger" href="#download">Download</a>
-                </li>
-                <li class="nav-item">
-                 <a class="nav-link js-scroll-trigger" href="#features">Features</a>
-                </li>
-                <li class="nav-item">
-                 <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-                </li> -->
+					<a class="nav-link js-scroll-trigger" href="#download">Download</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link js-scroll-trigger" href="#features">Features</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+				</li> -->
 			</ul>
 		</div>
 	</div>
@@ -58,35 +58,35 @@
 		<div class="row h-100">
 			<div class="col-lg-12 my-auto">
 				<div class="header-content mx-auto" style="text-align: center;">
-
+					
 					<a class="btn btn-outline btn-xl js-scroll-trigger" href="javascript:void(0);" data-toggle="modal" data-target="#login">Login</a>
 					<br />
 					<br />
 					<br />
 					<a class="btn btn-outline btn-xl js-scroll-trigger" href="javascript:void(0);" data-toggle="modal" data-target="#signUp">Sign Up</a>
-
+					
 				</div>
 			</div>
 			{{--<div class="col-lg-5 my-auto">
-             <div class="device-container">
-              <div class="device-mockup iphone6_plus portrait white">
-               <div class="device">
-                <div class="screen">
-                 <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                 <img src="{{ toolbox()->frontend()->asset('img/demo-screen-1.jpg') }}" class="img-fluid" alt="">
-                </div>
-                <div class="button">
-                 <!-- You can hook the "home button" to some JavaScript events or just remove it -->
-                </div>
-               </div>
-              </div>
-             </div>
-            </div>--}}
+				<div class="device-container">
+					<div class="device-mockup iphone6_plus portrait white">
+						<div class="device">
+							<div class="screen">
+								<!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+								<img src="{{ toolbox()->frontend()->asset('img/demo-screen-1.jpg') }}" class="img-fluid" alt="">
+							</div>
+							<div class="button">
+								<!-- You can hook the "home button" to some JavaScript events or just remove it -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>--}}
 		</div>
 	</div>
 </header>
 
-{{--@yield('contents')--}}
+@yield('contents')
 
 <footer>
 	<div class="container">
@@ -235,7 +235,7 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body message">
-				<p>Congratulation! Your email account has been verified.</p>
+			
 			</div>
 			<div class="modal-footer footer">
 				<button class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -245,9 +245,11 @@
 </div>
 
 
+
 {{-- Bootstrap core JavaScript --}}
 <script src="{{ toolbox()->frontend()->asset('js/jquery.min.js') }}"></script>
 <script src="{{ toolbox()->frontend()->asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="{{ toolbox()->frontend()->asset('/plugins/jquery-blockUI/jquery.blockUI.min.js') }}"></script>
 <script src="{{ toolbox()->frontend()->asset('/vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 <script src="{{ toolbox()->frontend()->asset('/js/jquery.easing.min.js') }}"></script>
@@ -256,6 +258,7 @@
 <script src="{{ toolbox()->userArea()->asset('/js/lib.js') }}"></script>
 {{-- Page Specific --}}
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.25/gmaps.js"></script>
 {!! JsValidator::formRequest( toolbox()->frontend()->request('SignupRequest'), '#form-signup')  !!}
 {!! JsValidator::formRequest( toolbox()->frontend()->request('LoginRequest'), '#form-login')  !!}
@@ -290,7 +293,7 @@
 
     {{-- Show dialogbox when a user successfully register --}}
     @if ( ($msg = session('success')) || ($msg = session('status')) )
-
+		
         $(function() {
 	        showInfoDialog( '{{ $msg }}', '{!! session('details') !!}');
 
@@ -299,22 +302,22 @@
 	            $('.alert', $(this)).remove();
 	        });
 		});
-
+		
 	@elseif ( $msg = session('showLoginForm') )
-
+	 
 		$(function () {
 			$('#login').modal('show');
 	    });
-
+		
 	@elseif ( session('error') )
 
 	    $(function () {
             showErrorDialog('{{ $msg }}', '{!! session('details') !!}');
 	    });
-
+		
 	@endif
-
-
+	
+	
 	$(function() {
         $('#form-login[ajax="on"]').on('submit', function () {
             var $me = $(this);
@@ -327,41 +330,14 @@
                         appHelper.showAlert( err.message, { type: 'danger', container: '#login .modal-body' } );
 		            },
 		            blockElement: $me
-
+		            
 	            });
             return false;
         });
 
-        $('.signup-submit').click(function(e) {
-            e.preventDefault();
-            console.log('submit...');
-            var address = $('#street').val()
-	            + ' ' + $('#city').val()
-	            + ' ' + $('#state').val()
-	            + ' ' + $('#zip').val();
-            console.log( address );
-
-            GMaps.geocode({
-                address: address,
-                callback: function(results, status) {
-	                if ( status == 'OK') {
-	                    var location = results[0].geometry.location;
-	                    console.log( location.lat(), location.lng() );
-		                $('#latitude').val( location.lat() );
-		                $('#longitude').val( location.lng() );
-                        $('#form-signup').submit();
-	                } else {
-	                    alert('The Google map is not understanding the provided location details. Please correct location details.');
-	                    console.error(results, status);
-	                }
-                }
-            });
-
-           return false;
-        });
-
+        
 	});
-
+	
 </script>
 
 @yield('footer')

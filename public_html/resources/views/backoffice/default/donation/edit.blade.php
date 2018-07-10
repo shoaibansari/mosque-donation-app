@@ -125,26 +125,19 @@
 
 @section('footer')
 	
-	{{-- <script src="{{ toolbox()->asset('/plugins/jquery/jquery.min.js') }}"></script> --}}
+	
 	
 	<script>
-		//$('input[name="start_date"]').daterangepicker();
-		// $(document).ready(function() {
-
-		//     $('.datepicker').daterangepicker({
-		//         format: 'dd/mm/yyyy'
-		//     });
-		// });
-       
-
 		$(function() {
-            // $('.datepicker').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+		    
             $('.bn-cancel').click( function(e) {
 		        appHelper.confirm(e, {message: 'Are you sure to cancel?', 'onConfirm': function() {
 		            window.location = '{{ route('admin.donation.manage') }}';
 		        }});
-		    });                     
-           		   
+		    });
+
+            
+		   
 		});
 	</script>
 @endsection

@@ -46,11 +46,14 @@ class MosqueCreateRequest extends FormRequest
 			'zip_code'               => 'required',
 			'phone'                  => 'required|min:7|max:11',
 			'bank_account'           => 'required|min:20',
-			'tax_id'                 => 'required|unique:mosques,tax_id|min:14',
+			'tax_id'                 => 'required|min:14',
 			'user_id'                => $user_id,
             'is_active'              => 'required',
             'longitude'              => $longitude,
             'latitude'               => $latitude,
+            'city'					=> 'required',
+            'state'					=> 'required',
+            'bank_routing'			=> 'required|min:14'	
 
 		];
 	}

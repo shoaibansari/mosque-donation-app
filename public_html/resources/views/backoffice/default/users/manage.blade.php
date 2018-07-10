@@ -53,6 +53,7 @@
                         'status': me.prop('checked') ? 1 : 0
                     }
                 });
+
             });
 
             // Confirmed
@@ -65,6 +66,11 @@
                         'status': me.prop('checked') ? 1 : 0
                     }
                 });
+                var id = $('.count').html();
+                $('.count').html(id-1);
+
+
+
             });
 
             // New

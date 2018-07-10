@@ -5,23 +5,25 @@ namespace App\Http\Controllers\Backoffice;
 use App\Http\Requests\Backoffice\AdminPasswordUpdateRequest;
 use App\Http\Requests\Backoffice\AdminProfileUpdateRequest;
 use App\Models\Repositories\Eloquent\AdminRepository;
+use App\Models\Repositories\Eloquent\UserRepository;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
 
 class AdminController extends Controller
 {
-	protected $adminRepository, $user, $avatarStoragePath;
+	protected $adminRepository, $user, $avatarStoragePath, $userRepo;
 
-	public function __construct( AdminRepository $adminRepository) {
+	public function __construct( AdminRepository $adminRepository, UserRepository $userRepository) {
 		$this->adminRepository = $adminRepository;
 		$this->avatarStoragePath = $this->adminRepository->getModel()->getAvatarStoragePath();
+		$this->userRepo = $userRepository;
 
 	}
 
 	public function getProfile() {
-		
-		return view( toolbox()->backend()->view('users.profile') );
+		$notifications = $this->userRepo->getNotConfirmedUser();
+		return view( toolbox()->backend()->view('users.profile'), compact('notifications') );
 	}
 
 	public function postProfile( AdminProfileUpdateRequest $request ) {

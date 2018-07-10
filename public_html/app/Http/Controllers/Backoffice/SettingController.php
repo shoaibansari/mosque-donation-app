@@ -9,26 +9,31 @@ use App\Models\Repositories\Eloquent\SettingRepository;
 use App\DataTables\Backoffice\CountriesDataTable;
 use Illuminate\Http\Request;
 use App\Models\Repositories\Eloquent\CountryRepository;
+use App\Models\Repositories\Eloquent\UserRepository;
 
 class SettingController extends Controller
 {
 	protected
 		$settingRepo,
-		$countryRepo
+		$countryRepo,
+		$userRepo
 	;
 
 	public function __construct(
 		SettingRepository $settingRepository,
-		CountryRepository $countryRepository
+		CountryRepository $countryRepository,
+		UserRepository $userRepository
 		 )
 	{
 		$this->settingRepo = $settingRepository;
 		$this->countryRepo = $countryRepository;
+		$this->userRepo = $userRepository;
 	}
 
 	public function getSettings() {
+		$notifications = $this->userRepo->getNotConfirmedUser();
 		$settings = $this->settingRepo->getForListing();
-		return view( toolbox()->backend()->view( 'settings.general' ), compact('settings') );
+		return view( toolbox()->backend()->view( 'settings.general' ), compact('settings','notifications') );
 	}
 
 	public function postSettings(Request $request ) {

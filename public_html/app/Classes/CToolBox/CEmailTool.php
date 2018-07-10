@@ -29,6 +29,11 @@ class CEmailTool {
 		return $this;
 	}
 
+	public function attach( $attach, $data=null ) {
+		$this->data[ 'attach' ] = $attach;
+		return $this;
+	}
+
 	public function to( $to, $name=null ) {
 		if ( is_array($to) ) {
 			$this->data[ 'to' ] = $to;
@@ -86,6 +91,7 @@ class CEmailTool {
 				$message->from( $fromEmail, $fromName );
 				$message->to( $this->data[ 'to' ] );
 				$message->subject( $this->data[ 'subject' ] );
+				$message->attach( $this->data[ 'attach' ] );
 			});
 		}
 
@@ -97,6 +103,7 @@ class CEmailTool {
 			$message->from( $fromEmail, $fromName );
 			$message->to( $this->data[ 'to' ] );
 			$message->subject( $this->data[ 'subject' ] );
+			$message->attach( $this->data[ 'attach' ] );
 			$message->setBody( $contents, 'text/html');
 		});
 	}

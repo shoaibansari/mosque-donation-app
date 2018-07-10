@@ -112,18 +112,29 @@ class DonationRepository extends AbstractRepository implements DonationRepositor
     
 
     public function getDonationMosque($mosqueId)
-    {
-    	 $donation = DB::table('donations')    	       
-    	            ->select('donations.id','donations.mosque_id', 'donations.donation_title', 'donations.donation_description', 'donations.required_amount', DB::raw("SUM(funds.payment) as total_fund"), 'donations.start_date', 'donations.end_date', 'donations.is_active')
-                    ->join('funds','funds.donation_id', '=', 'donations.id' )
-                    ->where('donations.is_active', 1)
-                    ->where('donations.end_date', '>=', Carbon::now()->format('Y-m-d'))
-                    ->where('donations.mosque_id', $mosqueId)
-                    ->get();
+    {    
+        $donation = DB::select("SELECT id, mosque_id, donation_title, donation_description, required_amount, start_date, end_date, (SELECT SUM(funds.payment) FROM funds WHERE donation_id = donations.id) as total_fund FROM `donations`where is_active = 1 and end_date >= '".Carbon::now()->format('Y-m-d')."' and mosque_id=".$mosqueId);
 
-		return $donation;
-			
+		return $donation;			
     }
+
+    public function getUserDonationMosque($user_id){
+    	return $this->model->where('user_id', '=', $user_id)
+        ->where('is_active' , '=' , 1)
+        ->where('end_date' , '>=' , Carbon::now() )
+        ->orderBy('id', 'DSC')
+        ->get();
+
+    }
+
+    public function getLatestDonation($date){
+
+    	$data['count'] = $this->model->where('created_at', '>=' , $date)->count();
+    	$data['notification'] = $this->model->where('created_at', '>' , $date)->get();
+    	return $data;
+    }
+
+
 
 
 }

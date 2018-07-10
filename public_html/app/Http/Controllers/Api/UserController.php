@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
-use App\Models\Repositories\Eloquent\JobRepository;
 use App\Models\Repositories\Eloquent\UserDeviceRepository;
 use App\Models\Repositories\Eloquent\UserRepository;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -14,17 +13,16 @@ use Illuminate\Support\Facades\Password;
 
 class UserController extends ApiController {
 	
-	private $userRepo, $deviceRepo, $jobRepo;
+	private $userRepo, $deviceRepo;
 	
 	/**
 	 * UserController constructor.
 	 * @param UserRepository $userRepo
 	 * @param UserDeviceRepository $deviceRepo
 	 */
-	public function __construct(UserRepository $userRepo, UserDeviceRepository $deviceRepo, JobRepository $jobRepo) {
+	public function __construct(UserRepository $userRepo, UserDeviceRepository $deviceRepo) {
 		$this->userRepo = $userRepo;
 		$this->deviceRepo = $deviceRepo;
-		$this->jobRepo = $jobRepo;
 	}
 	
 	/**

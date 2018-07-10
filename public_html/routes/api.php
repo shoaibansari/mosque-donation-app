@@ -18,7 +18,7 @@ Route::group(['namespace' => 'Api', 'middleware' => 'api'], function() {
 	Route::post('signup', 'AuthController@signup');
 	Route::post('login', 'AuthController@login');
 	Route::post('forgot-password', 'AuthController@forgotPassword');
-    // Route::post('account', 'AuthController@account');
+    Route::post('account', 'AuthController@account');
 
     //Mosque
     Route::post('masjid/create', 'MosqueController@store');
@@ -40,6 +40,7 @@ Route::group(['namespace' => 'Api', 'middleware' => 'api'], function() {
         Route::post('masjid/donation', 'MosqueDonationController@store');
         Route::post('masjid/donation/detail', 'MosqueDonationController@view');
         Route::post('past/donation', 'MosqueDonationController@getPastDonation');
+        Route::post('summary', 'MosqueDonationController@getDonationSummary');
 
         //mosque donation
         Route::post('masjid/donation/list', 'DonationController@getMosqueDonation');
@@ -52,6 +53,7 @@ Route::group(['namespace' => 'Api', 'middleware' => 'api'], function() {
 
         //wallet
         Route::post('wallet', 'UserAccountController@store');
+        Route::post('wallet/detail', 'UserAccountController@searchUserByToken');
 
     });
 	

@@ -13,13 +13,13 @@ class DonationCreateRequest extends FormRequest
 	 */
 	public function rules() {
 		return [
-			'donation_title'        => 'required|alpha',		    
+			'donation_title'        => 'required|regex:/(^[a-zA-Z ]+$)+/',		    
 		    'required_amount'       => 'required|integer',
 		    'start_date'            => 'required',
 		    'end_date'              => 'required|after:start_date',
-		    'mosque_id'             => 'required',
+		   // 'mosque_id'             => 'required',
 		    'is_active'             => 'required',
-		    'donation_description'  => 'required|alpha|min:10|max:500'
+		    'donation_description'  => 'required|regex:/(^[a-zA-Z ]+$)+/|min:10|max:500'
 		];
 	}
 
@@ -29,7 +29,7 @@ class DonationCreateRequest extends FormRequest
 			'required_amount'        => 'Amount',
 			'start_date'             => 'Start Date',
 		    'end_date'               => 'End Date',
-		    'mosque_id'              => 'Mosque',
+		    //'mosque_id'              => 'Mosque',
 		    'is_active'              => 'Active',
 		    'donation_description'   => 'Donation Description'
 		];

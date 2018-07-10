@@ -7,10 +7,12 @@ use App\DataTables\Backoffice\MosquesDataTable;
 use App\DataTables\Backoffice\JobLocationsDataTable;
 use App\Http\Requests\Backoffice\JobCreateRequest;
 use App\Http\Requests\Backoffice\MosqueCreateRequest;
+use App\Http\Requests\Backoffice\MosqueUpdateRequest;
 use App\Models\UserMosque;
 use App\Models\Repositories\Eloquent\UserRepository;
 use App\Models\Repositories\Eloquent\UserMosqueRepository;
 use App\Models\Repositories\Eloquent\MosqueRepository;
+use App\Models\Repositories\Eloquent\StateRepository;
 use App\Models\User;
 use App\Models\Mosque;
 use Illuminate\Http\Request;
@@ -18,17 +20,19 @@ use Illuminate\Http\Request;
 class MosqueController extends Controller
 {
 
-	protected $userRepo, $mosqueRepo, $userMosqueRepo;
+	protected $userRepo, $mosqueRepo, $userMosqueRepo, $stateRepo;
 
 	public function __construct(
 		UserRepository $userRepo,
 		MosqueRepository $mosqueRepo,
-		UserMosqueRepository $userMosqueRepo
+		UserMosqueRepository $userMosqueRepo,
+		StateRepository $stateRepo
 
 	) {
 		$this->userRepo = $userRepo;
 		$this->mosqueRepo = $mosqueRepo;
 		$this->userMosqueRepo = $userMosqueRepo;
+		$this->stateRepo = $stateRepo;
 	}
 
 	/**
@@ -38,8 +42,9 @@ class MosqueController extends Controller
 	 * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
 	 */
 	public function manage( MosquesDataTable $dataTable ) {
+		$notifications = $this->userRepo->getNotConfirmedUser();
 		toolbox()->pluginsManager()->plugins(['datatables']);
-		return $dataTable->render( toolbox()->backend()->view( 'mosque.manage' ) );
+		return $dataTable->render( toolbox()->backend()->view( 'mosque.manage'), compact('notifications') );
 	}
 
 	/**
@@ -64,11 +69,12 @@ class MosqueController extends Controller
 	 */
 	public function create() {
 		$action = 'create';
-		$allMosqueUsers = $this->userRepo->getMosqueUserList();
+		$allMosqueUsers = $this->userRepo->getMosqueUserList(true,true);
+		$states = $this->stateRepo->getStates(true);
 		$selectedMosqueUsers = null;
 		//$allMosque = $this->areaRepo->getUnassignedAreaList();
 		toolbox()->pluginsManager()->plugins( ['bs-daterangepicker-2.0', 'chosen' ]);
-		return view( toolbox()->backend()->view( 'mosque.edit' ), compact( 'action', 'allMosqueUsers', 'selectedMosqueUsers') );
+		return view( toolbox()->backend()->view( 'mosque.edit' ), compact( 'action', 'allMosqueUsers', 'selectedMosqueUsers', 'states') );
 	}
 
 	/**
@@ -78,7 +84,6 @@ class MosqueController extends Controller
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function store( MosqueCreateRequest $request ) {
-
 		$mosqueData = $request->except(['_token']);
 
 		if ( !$mosque = $this->mosqueRepo->create( $mosqueData )) {
@@ -120,10 +125,11 @@ class MosqueController extends Controller
 				
 		$action = 'edit';
 		$allMosqueUsers = $this->userRepo->getMosqueUserList();
+		$states = $this->stateRepo->getStates(true);
 		toolbox()->pluginsManager()->plugins(['bs-daterangepicker-2.0', 'chosen']);
 		return view(
 			toolbox()->backend()->view( 'mosque.edit' ),
-			compact( 'action', 'mosque', 'allMosqueUsers', 'selectedMosqueUsers')
+			compact( 'action', 'mosque', 'allMosqueUsers', 'selectedMosqueUsers','states')
 		);
 	}
 
@@ -133,7 +139,7 @@ class MosqueController extends Controller
 	 * @param MosqueCreateRequest $request
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function update( MosqueCreateRequest $request ) {
+	public function update( MosqueUpdateRequest $request ) {
 
 		$data = $request->except( ['_token'] );
 		if ( !$mosque = $this->mosqueRepo->update( $request->id, $data) ) {

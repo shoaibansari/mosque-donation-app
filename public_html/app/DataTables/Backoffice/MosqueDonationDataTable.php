@@ -21,30 +21,9 @@ class MosqueDonationDataTable extends DataTable
      */
     public function ajax()
     {
-        return $this->datatables->eloquent( $this->query())
+        return $this->datatables->queryBuilder($this->query())
             
-            ->addColumn('user_id', function( $donation ) {
-                 if($user = User::where('id',$donation->user_id)->first()){
-                    return $user->name;
-                }else{
-                    return 'No user' ;
-                }
-            })
-            ->addColumn('mosque_id', function( $donation ) {
-
-                if($mosque = Mosque::where('id',$donation->mosque_id)->first()){
-                    return $mosque->mosque_name;
-                }else{
-                    return 'No Mosque' ;
-                }
-            })
-            ->addColumn('donation_id', function( $donation ) {
-                if($donation = Donation::where('id',$donation->donation_id)->first()){
-                    return $donation->donation_title;
-                }else{
-                    return 'No title' ;
-                }
-            })            
+           
         ->make(true);
     }
 
@@ -55,8 +34,8 @@ class MosqueDonationDataTable extends DataTable
      */
     public function query()
     {
-        $query = MosqueDonation::where('donation_id', request()->route('id') );
-        return $this->applyScopes($query);
+       $query = DB::table('funds_view')->where('donation_id', request()->route('id'));
+       return $this->applyScopes($query);
     }
 
     /**
@@ -80,11 +59,11 @@ class MosqueDonationDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'user_id' => ['title' => 'Name'],
-            'mosque_id'=>['title' => 'Mosque'],
-            'donation_id'=> ['title' => 'Donation'],
-            'email' => ['title' => 'Email'],
-            'payment'=> ['title'=> 'payment'],
+            'name',
+            'mosque',
+            'donation',
+            'email',
+            'payment',
         ];
     }
 
